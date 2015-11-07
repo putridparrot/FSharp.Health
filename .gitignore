@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FSharp.Health/bin/Debug
+/FSharp.Health/obj/Debug
+/FSharp.Health.Tests/bin/Debug
+*.suo
+/FSharp.Health.Tests/obj/Debug
