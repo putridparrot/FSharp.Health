@@ -22,9 +22,34 @@ module Health =
         |> should (equalWithin 0.1) 25.4
 
     [<Fact>]
-    let ``classify a person with bmi of 30.0`` () =
-        classify 30.
+    let ``classify a person with bmi of 18.5`` () =
+        classify 18.4
+        |> should equal WeightClassification.Underweight
+
+    [<Fact>]
+    let ``classify a person with bmi of 24.9`` () =
+        classify 24.9
+        |> should equal WeightClassification.Normal
+
+    [<Fact>]
+    let ``classify a person with bmi of 29.9`` () =
+        classify 29.9
+        |> should equal WeightClassification.Overweight
+
+    [<Fact>]
+    let ``classify a person with bmi of 34.9`` () =
+        classify 34.9
         |> should equal WeightClassification.ObesityClass1
+
+    [<Fact>]
+    let ``classify a person with bmi of 39.9`` () =
+        classify 39.9
+        |> should equal WeightClassification.ObesityClass2
+
+    [<Fact>]
+    let ``classify a person with bmi of 40`` () =
+        classify 40.
+        |> should equal WeightClassification.MorbidObesity
 
     [<Fact>]
     let ``get range for HR Zone 1`` () =

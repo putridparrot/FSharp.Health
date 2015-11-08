@@ -16,7 +16,7 @@ module Health =
         | Overweight
         | ObesityClass1
         | ObesityClass2
-        | MorbidObesity
+        | MorbidObesity // also known as ObesityClass3
 
     type ActivityLevel =
         // little or no excercise
@@ -83,11 +83,11 @@ module Health =
     // works out your WeightClassification based upon your BMI
     let classify bmiValue = 
         match bmiValue with
-        | v when v <= 18.5 -> WeightClassification.Overweight
-        | v when v > 18.5 && v < 25. -> WeightClassification.Normal
+        | v when v < 18.5 -> WeightClassification.Underweight
+        | v when v >= 18.5 && v < 25. -> WeightClassification.Normal
         | v when v >= 25. && v < 30. -> WeightClassification.Overweight
         | v when v >= 30. && v < 35. -> WeightClassification.ObesityClass1
-        | v when v >= 35. && v < 40. -> WeightClassification.ObesityClass1
+        | v when v >= 35. && v < 40. -> WeightClassification.ObesityClass2
         | _ -> WeightClassification.MorbidObesity
 
     let bmr gender (weight : float<kg>) (height : float<m>) ageInYears =
