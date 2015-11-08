@@ -65,7 +65,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Units">
-      <HintPath>..\..\..\FSharp.Health\FSharp.Health\FSharp.Units.dll</HintPath>
+      <HintPath>..\FSharp.Health\FSharp.Units.dll</HintPath>
     </Reference>
     <Reference Include="FsUnit.CustomMatchers">
       <HintPath>..\packages\FsUnit.xUnit.1.3.0.1\Lib\net40\FsUnit.CustomMatchers.dll</HintPath>

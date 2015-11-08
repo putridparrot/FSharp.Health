@@ -1,5 +1,6 @@
 ﻿namespace FSharp.Health.Tests
 
+[<System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute>]
 module Health =
 
     open System
@@ -11,6 +12,7 @@ module Health =
     open FSharp.Health
     open FSharp.Units.Mass
     open FSharp.Units.Length
+    open FSharp.Units.Health
 
     [<Fact>]
     let ``calculate bmi for 172.7 cm tall person weighing 76 kg`` () =
@@ -107,3 +109,78 @@ module Health =
 
         zone
         |> should equal (94., 100.)
+
+    [<Fact>]
+    let ``maximum heart rate - standard formula, male aged 46`` () =
+        mhr Standard Male 46.
+        |> should equal 174.<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - standard formula, female aged 46`` () =
+        mhr Standard Female 46.
+        |> should equal 174.<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Gulati formula, male aged 46`` () =
+        mhr Gulati Male 46.
+        |> should equal 174.<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Gulati formula, female aged 46`` () =
+        mhr Gulati Female 46.
+        |> should equal 165.52<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Jackson formula, male aged 46`` () =
+        mhr Jackson Male 46.
+        |> should equal 176.08<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Whyte formula, male aged 46`` () =
+        mhr Whyte Male 46.
+        |> should equal 176.7<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Whyte formula, female aged 46`` () =
+        mhr Whyte Female 46.
+        |> should equal 165.86<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Tanaka formula, male aged 46`` () =
+        mhr Tanaka Male 46.
+        |> should equal 175.8<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Tanaka formula, female aged 46`` () =
+        mhr Tanaka Female 46.
+        |> should equal 175.8<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Gellish formula, male aged 46`` () =
+        mhr Gellish Male 46.
+        |> should equal 174.8<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Gellish formula, female aged 46`` () =
+        mhr Gellish Female 46.
+        |> should equal 174.8<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - LondreeMoeschberger formula, male aged 46`` () =
+        mhr LondreeMoeschberger Male 46.
+        |> should (equalWithin 0.001) 173.594<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - LondreeMoeschberger formula, female aged 46`` () =
+        mhr LondreeMoeschberger Female 46.
+        |> should (equalWithin 0.001) 173.594<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Miller formula, male aged 46`` () =
+        mhr Miller Male 46.
+        |> should equal 177.9<bpm>
+
+    [<Fact>]
+    let ``maximum heart rate - Miller formula, female aged 46`` () =
+        mhr Miller Female 46.
+        |> should equal 177.9<bpm>

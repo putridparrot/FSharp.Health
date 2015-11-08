@@ -123,10 +123,46 @@ module Health =
             let bodyFatWeight = weightInKg - leanBodyMass
             (bodyFatWeight * 100.) / weightInKg
 
-    // the MHR "usual equation" is derived 
-    let maximumHeartRate age = 220 - age
+    type MaximumHeartRateFormula =
+        | Standard
+        | Gulati
+        | Tanaka
+        | Gellish
+        | LondreeMoeschberger
+        | Miller
+        | Jackson
+        | Whyte
+
+    // calculate the maximum heart rate based upon gender and formula
+    // some formulae involve the gender, in the case of Standard, the Male and Female
+    // formulae is the same, I've just incorporated Gulati et al's formula as the female
+    // see also http://www.brianmac.co.uk/maxhr.htm
+    // http://www.runnersworld.com/ask-the-sports-doc/what-is-my-maximum-heart-rate
+    let mhr formula gender (age : float) = 
+        match formula with
+        | Standard -> bpm.create (220. - age)
+        | Gulati ->
+            match gender with
+            | Male -> bpm.create (220. - age) // Gulati et al do not define a male version of their formula, so assume Standard
+            | Female -> bpm.create (206. - (0.88 * age)) // mean peak HR for women based upon Dr Martha Gulati et al, 
+        | Tanaka -> bpm.create (208. - 0.7 * age)
+        | Gellish -> bpm.create (207. - 0.7 * age)
+        | LondreeMoeschberger -> bpm.create (206.3 - 0.711 * age)
+        | Miller -> bpm.create (217. - 0.85 * age)
+        | Jackson -> bpm.create (206.9 - 0.67 * age)
+        | Whyte ->
+            match gender with
+            | Male -> bpm.create (202. - 0.55 * age)
+            | Female -> bpm.create (216. - 1.09 * age)
+
+    // alternate equations
+    // the "standard" formula 220 - age
+    // study by Tanaka in 2001 = 208 - 0.7 * age
+    // study by Gellish in 2007 = 207 - 0.7 * age
+    // Dr Martha Gulati et al 
+    // see also http://www.brianmac.co.uk/maxhr.htm
 
     // maximum heart rate (mhr), heart rate at rest (rhr)
     // intensity as a % (i.e. somewhere between 60% and 80% depending on goals)
     let targetHeartRate rhr mhr intensity = 
-        LanguagePrimitives.FloatWithMeasure<bpm> ((mhr - rhr) * intensity) + rhr
+        bpm.create ((mhr - rhr) * intensity) + rhr
