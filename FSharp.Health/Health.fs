@@ -155,14 +155,13 @@ module Health =
             | Male -> bpm.create (202. - 0.55 * age)
             | Female -> bpm.create (216. - 1.09 * age)
 
-    // alternate equations
-    // the "standard" formula 220 - age
-    // study by Tanaka in 2001 = 208 - 0.7 * age
-    // study by Gellish in 2007 = 207 - 0.7 * age
-    // Dr Martha Gulati et al 
-    // see also http://www.brianmac.co.uk/maxhr.htm
-
-    // maximum heart rate (mhr), heart rate at rest (rhr)
+    // calculate target heart rate  using maximum heart rate (mhr), heart rate at rest (rhr)
     // intensity as a % (i.e. somewhere between 60% and 80% depending on goals)
-    let targetHeartRate rhr mhr intensity = 
-        bpm.create ((mhr - rhr) * intensity) + rhr
+    /// <summary>
+    /// Calculate the target heart rate (THR)
+    /// </summary>
+    /// <param name="maxhr">The maximum heart rate, can be calculate using the mhr function</param>
+    /// <param name="rhr">The heart rate at rest</param>
+    /// <param name="intensity">The intensity as a %, i.e. 0.6 for 60%</param>
+    let thr (maxhr : float<bpm>) (rhr : float<bpm>) intensity = 
+        bpm.create (((float)maxhr - (float)rhr) * intensity) + rhr

@@ -209,3 +209,13 @@ module Health =
     let ``maximum heart rate - Miller formula, female aged 46`` () =
         mhr Miller Female 46.
         |> should equal 177.9<bpm>
+
+    [<Fact>]
+    let ``calculate target heart rate at 60%`` () =
+        thr 180.<bpm> 63.<bpm> 0.6
+        |> should equal 133.2<bpm>
+
+    [<Fact>]
+    let ``calculate target heart rate at 80%`` () =
+        thr 180.<bpm> 63.<bpm> 0.8
+        |> should (equalWithin 0.01) 156.6<bpm>
