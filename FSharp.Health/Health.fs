@@ -90,10 +90,16 @@ module Health =
         | v when v >= 35. && v < 40. -> WeightClassification.ObesityClass2
         | _ -> WeightClassification.MorbidObesity
 
+    ///<summary>
+    ///The Basal Metabolic Rate (BMR) denotes the number of calories you'd burn
+    ///if you did nothing all day
+    ///formula taken from https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation
+    ///and http://www.bmi-calculator.net/bmr-calculator/bmr-formula.php
+    ///</summary>
     let bmr gender (weight : float<kg>) (height : float<m>) ageInYears =
         match gender with
-        | Gender.Male -> 66. + (13.7 * float weight) + (5. * float height * 100.) - (6.8 * ageInYears)
-        | Gender.Female -> 655. + (9.6 * float weight) + (1.8 * float height * 100.) - (4.7 * ageInYears)
+        | Gender.Male -> 66.5 + (13.75 * float weight) + (5.003 * float height * 100.) - (6.755 * ageInYears)
+        | Gender.Female -> 655.1 + (9.563 * float weight) + (1.850 * float height * 100.) - (4.676 * ageInYears)
 
     // uses the Harris Benedict Formula
     let calculateDailyCalories activityLevel bmrValue =

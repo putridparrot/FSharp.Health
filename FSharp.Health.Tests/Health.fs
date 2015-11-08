@@ -219,3 +219,13 @@ module Health =
     let ``calculate target heart rate at 80%`` () =
         thr 180.<bpm> 63.<bpm> 0.8
         |> should (equalWithin 0.01) 156.6<bpm>
+
+    [<Fact>]
+    let ``calculate daily calories male aged 35, height 1.73m, weight 84kg`` () =
+        bmr Male 84.<kg> 1.73<m> 35.
+        |> should (equalWithin 0.001) 1850.594
+
+    [<Fact>]
+    let ``calculate daily calories female aged 35, height 1.73m, weight 84kg`` () =
+        bmr Female 84.<kg> 1.73<m> 35.
+        |> should (equalWithin 0.001) 1614.782
