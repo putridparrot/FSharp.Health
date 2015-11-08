@@ -7,3 +7,4 @@
 /FSharp.Health.Tests/bin/Debug
 *.suo
 /FSharp.Health.Tests/obj/Debug
+*.user

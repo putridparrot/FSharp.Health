@@ -44,22 +44,37 @@ module Health =
         | Maximal = 10
 
     type HeartRateZones =
-        // Light Excercise
+        // Light Excercise/Recovery (aerobic)
         | Zone1
-        // Moderate Excercise
+        // Moderate Excercise/Endurance (aerobic)
         | Zone2
-        // Endurance Training
+        // Endurance Training/Stamina (aerobic)
         | Zone3
-        // High Performance Training
+        // High Performance Training/Economy (anaerobic)
         | Zone4
+        // Speed (anearobic)
+        | Zone5
+        | ZoneMax
 
+    // returns the % (range) of Max HR 
     let getHeartRateZoneRange hrz =
         match hrz with
         | Zone1 -> (50., 60.)
         | Zone2 -> (60., 70.)
         | Zone3 -> (70., 80.)
         | Zone4 -> (80., 90.)
+        | Zone5 -> (90., 100.)
+        | ZoneMax -> (100., 100.)
     
+    let getCyclingHeartRangeZoneRange hrz =
+        match hrz with
+        | Zone1 -> (60., 65.)
+        | Zone2 -> (65., 75.)
+        | Zone3 -> (75., 82.)
+        | Zone4 -> (82., 89.)
+        | Zone5 -> (89., 94.)
+        | ZoneMax -> (94., 100.)
+
     // the approximate number of calories required to increase/descrease body weight by a lb
     let approximateCaloriesPerPoundOfWeight = 3500
     
@@ -69,10 +84,10 @@ module Health =
     let classify bmiValue = 
         match bmiValue with
         | v when v <= 18.5 -> WeightClassification.Overweight
-        | v when v > 18.5 && v <= 24.99 -> WeightClassification.Normal
-        | v when v >= 25. && v <= 29.99 -> WeightClassification.Overweight
-        | v when v >= 30. && v <= 34.99 -> WeightClassification.ObesityClass1
-        | v when v >= 35. && v <= 39.99 -> WeightClassification.ObesityClass1
+        | v when v > 18.5 && v < 25. -> WeightClassification.Normal
+        | v when v >= 25. && v < 30. -> WeightClassification.Overweight
+        | v when v >= 30. && v < 35. -> WeightClassification.ObesityClass1
+        | v when v >= 35. && v < 40. -> WeightClassification.ObesityClass1
         | _ -> WeightClassification.MorbidObesity
 
     let bmr gender (weight : float<kg>) (height : float<m>) ageInYears =
@@ -108,6 +123,7 @@ module Health =
             let bodyFatWeight = weightInKg - leanBodyMass
             (bodyFatWeight * 100.) / weightInKg
 
+    // the MHR "usual equation" is derived 
     let maximumHeartRate age = 220 - age
 
     // maximum heart rate (mhr), heart rate at rest (rhr)
