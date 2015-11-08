@@ -155,13 +155,14 @@ module Health =
             | Male -> bpm.create (202. - 0.55 * age)
             | Female -> bpm.create (216. - 1.09 * age)
 
-    // calculate target heart rate  using maximum heart rate (mhr), heart rate at rest (rhr)
+    // calculate target heart rate zone using maximum heart rate (mhr), heart rate at rest (rhr)
     // intensity as a % (i.e. somewhere between 60% and 80% depending on goals)
+    // see http://www.wikihow.com/Calculate-Your-Target-Heart-Rate
     /// <summary>
-    /// Calculate the target heart rate (THR)
+    /// Calculate the target heart rate (THR) zone
     /// </summary>
     /// <param name="maxhr">The maximum heart rate, can be calculate using the mhr function</param>
-    /// <param name="rhr">The heart rate at rest</param>
+    /// <param name="restinghr">The heart rate at rest</param>
     /// <param name="intensity">The intensity as a %, i.e. 0.6 for 60%</param>
-    let thr (maxhr : float<bpm>) (rhr : float<bpm>) intensity = 
-        bpm.create (((float)maxhr - (float)rhr) * intensity) + rhr
+    let thr (maxhr : float<bpm>) (restinghr : float<bpm>) intensity = 
+        bpm.create (((float)maxhr - (float)restinghr) * intensity) + restinghr
