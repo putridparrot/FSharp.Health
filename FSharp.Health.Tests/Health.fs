@@ -254,3 +254,8 @@ module Health =
     let ``calculate daily calories extra active`` () =
         calculateDailyCalories ActivityLevel.ExtraActive 1850.594
         |> should (equalWithin 0.001) 3516.129
+
+//    [<Fact>]
+//    let ``calculate body fat male`` () =
+//        calculateBodyFat Male  75.<kg> 20.<cm> 112.<cm> 105.<cm> 27.<cm>
+//        |> should (equalWithin 0.001) 49.0061

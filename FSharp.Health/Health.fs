@@ -111,23 +111,29 @@ module Health =
         | ActivityLevel.ExtraActive -> bmrValue * 1.9
     
     //http://www.bmi-calculator.net/body-fat-calculator/body-fat-formula.php
-    let calculateBodyFat gender weightInKg wristAtFullestPointInCm waistAtNavalInCm hipAtFullest forearmAdFullest =
-        match gender with
-        | Gender.Male -> 
-            let factor1 = (weightInKg * 1.082) + 94.42
-            let factor2 = waistAtNavalInCm * 4.15
-            let leanBodyMass = factor1 - factor2
-            let bodyFatWeight = weightInKg - leanBodyMass
-            (bodyFatWeight * 100.) / weightInKg
-        | Gender.Female ->
-            let factor1 = (weightInKg * 0.732) + 8.987
-            let factor2 = wristAtFullestPointInCm / 3.140
-            let factor3 = waistAtNavalInCm * 0.157
-            let factor4 = hipAtFullest * 0.249
-            let factor5 = forearmAdFullest * 0.434
-            let leanBodyMass = factor1 + factor2 - factor3 - factor4 + factor5
-            let bodyFatWeight = weightInKg - leanBodyMass
-            (bodyFatWeight * 100.) / weightInKg
+    // this does not seem to be correct !
+//    let calculateBodyFat gender (weight : float<kg>) (wristAtFullestPoint : float<cm>) (waistAtNaval  : float<cm>) (hipAtFullest  : float<cm>) (forearmAtFullest : float<cm>) =
+//        let weightInKg = float weight
+//        let waistAtNavalInCm = float waistAtNaval
+//        let wristAtFullestPointInCm = float wristAtFullestPoint
+//        let hipAtFullestCm = float hipAtFullest
+//        let forearmAtFullestCm = float forearmAtFullest
+//        match gender with
+//        | Gender.Male -> 
+//            let factor1 = (weightInKg * 1.082) + 94.42
+//            let factor2 = waistAtNavalInCm * 4.15
+//            let leanBodyMass = factor1 - factor2
+//            let bodyFatWeight = weightInKg - leanBodyMass
+//            (bodyFatWeight * 100.) / weightInKg
+//        | Gender.Female ->
+//            let factor1 = (weightInKg * 0.732) + 8.987
+//            let factor2 = wristAtFullestPointInCm / 3.140
+//            let factor3 = waistAtNavalInCm * 0.157
+//            let factor4 = hipAtFullestCm * 0.249
+//            let factor5 = forearmAtFullestCm * 0.434
+//            let leanBodyMass = factor1 + factor2 - factor3 - factor4 + factor5
+//            let bodyFatWeight = weightInKg - leanBodyMass
+//            (bodyFatWeight * 100.) / weightInKg
 
     type MaximumHeartRateFormula =
         | Standard
