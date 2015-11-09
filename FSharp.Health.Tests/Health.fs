@@ -221,11 +221,36 @@ module Health =
         |> should (equalWithin 0.01) 156.6<bpm>
 
     [<Fact>]
-    let ``calculate daily calories male aged 35, height 1.73m, weight 84kg`` () =
+    let ``calculate BMR male aged 35, height 1.73m, weight 84kg`` () =
         bmr Male 84.<kg> 1.73<m> 35.
         |> should (equalWithin 0.001) 1850.594
 
     [<Fact>]
-    let ``calculate daily calories female aged 35, height 1.73m, weight 84kg`` () =
+    let ``calculate BMR female aged 35, height 1.73m, weight 84kg`` () =
         bmr Female 84.<kg> 1.73<m> 35.
         |> should (equalWithin 0.001) 1614.782
+
+    [<Fact>]
+    let ``calculate daily calories sedentary`` () =
+        calculateDailyCalories ActivityLevel.Sedentary 1850.594
+        |> should (equalWithin 0.001) 2220.713
+
+    [<Fact>]
+    let ``calculate daily calories lightly active`` () =
+        calculateDailyCalories ActivityLevel.LightlyActive 1850.594
+        |> should (equalWithin 0.001) 2544.567
+
+    [<Fact>]
+    let ``calculate daily calories moderately active`` () =
+        calculateDailyCalories ActivityLevel.ModeratelyActive 1850.594
+        |> should (equalWithin 0.001) 2868.421
+
+    [<Fact>]
+    let ``calculate daily calories very active`` () =
+        calculateDailyCalories ActivityLevel.VeryActive 1850.594
+        |> should (equalWithin 0.001) 3192.275
+
+    [<Fact>]
+    let ``calculate daily calories extra active`` () =
+        calculateDailyCalories ActivityLevel.ExtraActive 1850.594
+        |> should (equalWithin 0.001) 3516.129
