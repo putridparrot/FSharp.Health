@@ -110,30 +110,30 @@ module Health =
         | ActivityLevel.VeryActive -> bmrValue * 1.725
         | ActivityLevel.ExtraActive -> bmrValue * 1.9
     
-    //http://www.bmi-calculator.net/body-fat-calculator/body-fat-formula.php
-    // this does not seem to be correct !
-//    let calculateBodyFat gender (weight : float<kg>) (wristAtFullestPoint : float<cm>) (waistAtNaval  : float<cm>) (hipAtFullest  : float<cm>) (forearmAtFullest : float<cm>) =
-//        let weightInKg = float weight
-//        let waistAtNavalInCm = float waistAtNaval
-//        let wristAtFullestPointInCm = float wristAtFullestPoint
-//        let hipAtFullestCm = float hipAtFullest
-//        let forearmAtFullestCm = float forearmAtFullest
-//        match gender with
-//        | Gender.Male -> 
-//            let factor1 = (weightInKg * 1.082) + 94.42
-//            let factor2 = waistAtNavalInCm * 4.15
-//            let leanBodyMass = factor1 - factor2
-//            let bodyFatWeight = weightInKg - leanBodyMass
-//            (bodyFatWeight * 100.) / weightInKg
-//        | Gender.Female ->
-//            let factor1 = (weightInKg * 0.732) + 8.987
-//            let factor2 = wristAtFullestPointInCm / 3.140
-//            let factor3 = waistAtNavalInCm * 0.157
-//            let factor4 = hipAtFullestCm * 0.249
-//            let factor5 = forearmAtFullestCm * 0.434
-//            let leanBodyMass = factor1 + factor2 - factor3 - factor4 + factor5
-//            let bodyFatWeight = weightInKg - leanBodyMass
-//            (bodyFatWeight * 100.) / weightInKg
+    // http://www.bmi-calculator.net/body-fat-calculator/body-fat-formula.php
+    // original calculate is in pounds and inches but as I've defaulted to metrics we'll have to convert
+    let calculateBodyFat gender (weight : float<kg>) (waistAtNaval  : float<cm>) (wristAtFullestPoint : float<cm>) (hipAtFullest  : float<cm>) (forearmAtFullest : float<cm>) =
+        let weightInPounds = float (kg.toPounds weight)
+        let waistAtNavalInInches = float (cm.toInches waistAtNaval)
+        let wristAtFullestPointInInches = float (cm.toInches wristAtFullestPoint)
+        let hipAtFullestInches = float (cm.toInches hipAtFullest)
+        let forearmAtFullestInches = float (cm.toInches forearmAtFullest)
+        match gender with
+        | Gender.Male -> 
+            let factor1 = (weightInPounds * 1.082) + 94.42
+            let factor2 = waistAtNavalInInches * 4.15
+            let leanBodyMass = factor1 - factor2
+            let bodyFatWeight = weightInPounds - leanBodyMass
+            (bodyFatWeight * 100.) / weightInPounds
+        | Gender.Female ->
+            let factor1 = (weightInPounds * 0.732) + 8.987
+            let factor2 = wristAtFullestPointInInches / 3.140
+            let factor3 = waistAtNavalInInches * 0.157
+            let factor4 = hipAtFullestInches * 0.249
+            let factor5 = forearmAtFullestInches * 0.434
+            let leanBodyMass = factor1 + factor2 - factor3 - factor4 + factor5
+            let bodyFatWeight = weightInPounds - leanBodyMass
+            (bodyFatWeight * 100.) / weightInPounds
 
     type MaximumHeartRateFormula =
         | Standard

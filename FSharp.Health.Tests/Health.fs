@@ -255,7 +255,13 @@ module Health =
         calculateDailyCalories ActivityLevel.ExtraActive 1850.594
         |> should (equalWithin 0.001) 3516.129
 
-//    [<Fact>]
-//    let ``calculate body fat male`` () =
-//        calculateBodyFat Male  75.<kg> 20.<cm> 112.<cm> 105.<cm> 27.<cm>
-//        |> should (equalWithin 0.001) 49.0061
+    [<Fact>]
+    let ``calculate body fat female`` () =
+        calculateBodyFat Female 58.967<kg> 63.5<cm> 10.16<cm> 76.2<cm> 12.7<cm>
+        |> should (equalWithin 0.01) 26.
+
+    [<Fact>]
+    let ``calculate body fat male`` () =
+        // for a male we only require weight and waist
+        calculateBodyFat Male 90.7185<kg> 114.3<cm> 0.<cm> 0.<cm> 0.<cm>
+        |> should (equalWithin 0.01) 37.97
