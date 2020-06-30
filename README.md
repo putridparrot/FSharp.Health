@@ -1,4 +1,7 @@
 # FSharp.Health
+
+[![Build Status](https://travis-ci.com/putridparrot/FSharp.Health.svg?branch=master)](https://travis-ci.com/putridparrot/FSharp.Health)
+
 Health and fitness type formulae etc.
 
 Includes some different types and formulae for calculating various health related values.
